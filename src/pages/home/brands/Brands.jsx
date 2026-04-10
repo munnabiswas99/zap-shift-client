@@ -47,6 +47,7 @@ const Brands = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <hr className="my-10"/>
     </>
   );
 };
