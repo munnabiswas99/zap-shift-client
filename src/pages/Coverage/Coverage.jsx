@@ -43,7 +43,7 @@ const Coverage = () => {
             </svg>
             <input type="search" className="grow" placeholder="Search" name="location"/>
           </label>
-          <input type="submit" className="bg-primary px-3 py-1 rounded-xl ml-2 "/>
+          <input type="submit" value='Search' className="bg-primary px-3 py-1 rounded-xl ml-2 "/>
         </form>
         <hr className="text-gray-400 font-bold"/>
         <h3 className="font-bold text-3xl text-gray-700">We deliver almost all over Bangladesh</h3>

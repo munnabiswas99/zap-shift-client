@@ -30,7 +30,7 @@ const Features = () => {
     <>
       {features.map((feature) => (
         <div className="flex p-10 items-center gap-10 bg-base-100 my-4 shadow-2xl" key={feature.id}>
-          <div className="">
+          <div className="border-r-2 border-dashed border-secondary p-10">
             <img src={feature.img} alt="" />
           </div>
           <div>
