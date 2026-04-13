@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import { Link } from "react-router";
 
 const Register = () => {
   const {
@@ -22,12 +23,24 @@ const Register = () => {
   };
   return (
     <div>
+      <h1 className="text-4xl font-bold">Create an Account</h1>
+      <h3 className="text-2xl">Register with ZapShift</h3>
       <form onSubmit={handleSubmit(handleRegistration)}>
         <fieldset className="fieldset">
+          <label className="label">Name</label>
+          <input
+            type="text"
+            className="input w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+            placeholder="Name"
+            {...register("name", { required: true })}
+          />
+          {errors.name?.type === "required" && (
+            <p className="text-red-500">Name is required</p>
+          )}
           <label className="label">Email</label>
           <input
             type="email"
-            className="input"
+            className="input w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
             placeholder="Email"
             {...register("email", { required: true })}
           />
@@ -37,7 +50,7 @@ const Register = () => {
           <label className="label">Password</label>
           <input
             type="password"
-            className="input"
+            className="input w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
             placeholder="Password"
             {...register("password", {
               required: true,
@@ -60,9 +73,26 @@ const Register = () => {
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
-          <button className="btn btn-neutral mt-4">SignUp</button>
+          <button className="w-full bg-primary hover:bg-lime-500 text-black font-medium py-2 rounded-md">SignUp</button>
         </fieldset>
       </form>
+      <div className="my-6 text-center text-gray-400">Or</div>
+
+      {/* Google Login */}
+      <button className="w-full border py-2 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100">
+        <img
+          src="https://www.svgrepo.com/show/475656/google-color.svg"
+          alt="google"
+          className="w-5 h-5"
+        />
+        SignUp with Google
+      </button>
+
+      {/* Register */}
+      <p className="mt-4 text-sm text-gray-500">
+        Don’t have any account?{" "}
+        <Link to='/login'><span className="text-primarycursor-pointer">Login</span></Link>
+      </p>
     </div>
   );
 };
