@@ -1,11 +1,57 @@
-import React from 'react';
+import React from "react";
+import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
-    return (
-        <div>
-            <h1>login Now</h1>
-        </div>
-    );
+  const { signInUser } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleSignIn = (data) => {
+    signInUser(data.email, data.password)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit(handleSignIn)}>
+        <fieldset className="fieldset">
+          <label className="label">Email</label>
+          <input
+            type="email"
+            className="input"
+            placeholder="Email"
+            {...register("email", { required: true })}
+          />
+          {errors.email?.type === "required" && (
+            <p className="text-red-500">Email is required</p>
+          )}
+          <label className="label">Password</label>
+          <input
+            type="password"
+            className="input"
+            placeholder="Password"
+            {...register("password", { required: true })}
+          />
+          {errors.password?.type === "required" && (
+            <p className="text-red-500">Password is required</p>
+          )}
+          <div>
+            <a className="link link-hover">Forgot password?</a>
+          </div>
+          <button className="btn btn-neutral mt-4">Login</button>
+        </fieldset>
+      </form>
+    </div>
+  );
 };
 
 export default Login;
