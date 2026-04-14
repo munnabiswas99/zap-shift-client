@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { Link } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import SocialLogin from "../socialLogin/SocialLogin";
 
 const Login = () => {
   const { signInUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -16,10 +17,11 @@ const Login = () => {
   const handleSignIn = (data) => {
     signInUser(data.email, data.password)
       .then((res) => {
-        console.log(res.user);
+        // console.log(res.user);
+        navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 

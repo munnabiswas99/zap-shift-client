@@ -12,7 +12,7 @@ import ReviewCard from "./ReviewCard";
 
 const Review = () => {
   const reviews = use(reviewPromise);
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <div className="my-10">
       <div className="text-center space-y-4 my-10">

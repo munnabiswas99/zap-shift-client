@@ -4,17 +4,17 @@ import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-  const {user, logOut} = useAuth();
+  const { user, logOut } = useAuth();
 
   const handleSignOut = () => {
     logOut()
-    .then(res => {
-      console.log(res)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const links = (
     <>
       <li>
@@ -26,7 +26,6 @@ const Navbar = () => {
       <li>
         <NavLink to="/about">About</NavLink>
       </li>
-
     </>
   );
   return (
@@ -57,21 +56,27 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
-          <Logo></Logo>
-        </a>
+        <Logo></Logo>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {
-          user && <button onClick={handleSignOut} className="px-3 py-2 bg-gray-300 rounded-xl">SignOut</button>
-        }
-        {
-          !user && <><Link to='/login'><button className="px-3 py-2 bg-gray-300 rounded-xl">SignIn</button></Link> <Link to='/register'><button className="px-3 py-2 bg-primary rounded-xl mx-2">SignUp</button></Link></>
-          
-        }
+        {user ? (
+          <button
+            onClick={handleSignOut}
+            className="px-3 py-2 bg-gray-300 rounded-xl"
+          >
+            SignOut
+          </button>
+        ) : (
+          <Link className="px-3 py-2 bg-gray-300 rounded-xl" to="/login">
+            SignIn
+          </Link>
+        )}
+        <Link className="px-3 py-2 bg-primary rounded-xl mx-2" to="/register">
+          Be a rider
+        </Link>
       </div>
     </div>
   );

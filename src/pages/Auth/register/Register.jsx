@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import SocialLogin from "../socialLogin/SocialLogin";
 
 const Register = () => {
@@ -12,14 +12,17 @@ const Register = () => {
   } = useForm();
 
   const { registerUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleRegistration = (data) => {
+    console.log(data);
     registerUser(data.email, data.password)
       .then((res) => {
         // console.log(res.user)
+        navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
   return (
@@ -37,6 +40,16 @@ const Register = () => {
           />
           {errors.name?.type === "required" && (
             <p className="text-red-500">Name is required</p>
+          )}
+          <label className="label">Photo</label>
+          <input
+            type="file"
+            className="file-input w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+            placeholder="Photo"
+            {...register("photo", { required: true })}
+          />
+          {errors.photo?.type === "required" && (
+            <p className="text-red-500">Photo is required</p>
           )}
           <label className="label">Email</label>
           <input
@@ -74,14 +87,18 @@ const Register = () => {
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
-          <button className="w-full bg-primary hover:bg-lime-500 text-black font-medium py-2 rounded-md">SignUp</button>
+          <button className="w-full bg-primary hover:bg-lime-500 text-black font-medium py-2 rounded-md">
+            SignUp
+          </button>
         </fieldset>
       </form>
-          <SocialLogin></SocialLogin>
+      <SocialLogin></SocialLogin>
       {/* Register */}
       <p className="mt-4 text-sm text-gray-500">
         Don’t have any account?{" "}
-        <Link to='/login'><span className="text-primarycursor-pointer">Login</span></Link>
+        <Link to="/login">
+          <span className="text-primarycursor-pointer">Login</span>
+        </Link>
       </p>
     </div>
   );
