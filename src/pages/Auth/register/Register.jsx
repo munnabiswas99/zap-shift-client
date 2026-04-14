@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
+import SocialLogin from "../socialLogin/SocialLogin";
 
 const Register = () => {
   const {
@@ -24,7 +25,7 @@ const Register = () => {
   return (
     <div>
       <h1 className="text-4xl font-bold">Create an Account</h1>
-      <h3 className="text-2xl">Register with ZapShift</h3>
+      <h3 className="text-2xl my-2">Register with ZapShift</h3>
       <form onSubmit={handleSubmit(handleRegistration)}>
         <fieldset className="fieldset">
           <label className="label">Name</label>
@@ -76,18 +77,7 @@ const Register = () => {
           <button className="w-full bg-primary hover:bg-lime-500 text-black font-medium py-2 rounded-md">SignUp</button>
         </fieldset>
       </form>
-      <div className="my-6 text-center text-gray-400">Or</div>
-
-      {/* Google Login */}
-      <button className="w-full border py-2 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100">
-        <img
-          src="https://www.svgrepo.com/show/475656/google-color.svg"
-          alt="google"
-          className="w-5 h-5"
-        />
-        SignUp with Google
-      </button>
-
+          <SocialLogin></SocialLogin>
       {/* Register */}
       <p className="mt-4 text-sm text-gray-500">
         Don’t have any account?{" "}

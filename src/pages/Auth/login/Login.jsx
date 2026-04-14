@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
+import SocialLogin from "../socialLogin/SocialLogin";
 
 const Login = () => {
   const { signInUser } = useAuth();
@@ -72,22 +73,14 @@ const Login = () => {
       </form>
 
       {/* Divider */}
-      <div className="my-6 text-center text-gray-400">Or</div>
-
-      {/* Google Login */}
-      <button className="w-full border py-2 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100">
-        <img
-          src="https://www.svgrepo.com/show/475656/google-color.svg"
-          alt="google"
-          className="w-5 h-5"
-        />
-        Login with Google
-      </button>
+      <SocialLogin></SocialLogin>
 
       {/* Register */}
       <p className="mt-4 text-sm text-gray-500">
         Don’t have any account?{" "}
-        <Link to='/register'><span className="text-primarycursor-pointer">Register</span></Link>
+        <Link to="/register">
+          <span className="text-primarycursor-pointer">Register</span>
+        </Link>
       </p>
     </div>
   );
