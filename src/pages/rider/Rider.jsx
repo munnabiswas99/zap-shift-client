@@ -3,7 +3,7 @@ import React from 'react';
 const Rider = () => {
     return (
         <div>
-            Be a rider
+            <h1>fahgsjhgfjksag</h1>
         </div>
     );
 };

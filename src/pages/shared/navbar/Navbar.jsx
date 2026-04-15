@@ -68,7 +68,7 @@ const Navbar = () => {
             SignIn
           </Link>
         )}
-        <Link className="px-3 py-2 bg-primary rounded-xl mx-2" to="/register">
+        <Link className="px-3 py-2 bg-primary rounded-xl mx-2" to="/rider">
           Be a rider
         </Link>
       </div>
