@@ -7,8 +7,8 @@ import About from "../pages/about/About";
 import Login from "../pages/Auth/login/Login";
 import Register from "../pages/Auth/Register/Register";
 import AuthLayout from "../layouts/AuthLayout";
-import PrivateRoute from "./PrivateRoute";
 import Rider from "../pages/rider/Rider";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
         Component: Home
       },
       {
-        path: '/rider',
+        path: 'rider',
         element: <PrivateRoute><Rider></Rider></PrivateRoute>
       },
       {
