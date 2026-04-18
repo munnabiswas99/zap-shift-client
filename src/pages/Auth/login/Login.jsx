@@ -1,12 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../socialLogin/SocialLogin";
 
 const Login = () => {
   const { signInUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log("Register", location);
 
   const {
     register,
@@ -18,7 +20,7 @@ const Login = () => {
     signInUser(data.email, data.password)
       .then((res) => {
         // console.log(res.user);
-        navigate("/");
+        navigate(location.state || "/");
       })
       .catch((error) => {
         // console.log(error);
@@ -80,8 +82,12 @@ const Login = () => {
       {/* Register */}
       <p className="mt-4 text-sm text-gray-500">
         Don’t have any account?{" "}
-        <Link to="/register">
-          <span className="text-primarycursor-pointer">Register</span>
+        <Link
+          state={location.state}
+          to="/register"
+          className="text-primarycursor-pointer"
+        >
+          Register
         </Link>
       </p>
     </div>
