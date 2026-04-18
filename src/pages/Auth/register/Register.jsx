@@ -45,7 +45,7 @@ const Register = () => {
           })
         })
 
-        navigate(location.state || '/');
+        navigate('/');
       })
       .catch((error) => {
         // console.log(error);
