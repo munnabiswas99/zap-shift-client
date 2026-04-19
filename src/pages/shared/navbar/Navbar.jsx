@@ -1,10 +1,12 @@
 import React from "react";
 import Logo from "../../../components/logo/Logo";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const location = useLocation();
+  console.log(location);
 
   const handleSignOut = () => {
     logOut().then().catch();
@@ -16,6 +18,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/coverage">Coverage</NavLink>
+      </li>
+      <li>
+        <NavLink to="/sendParcel">Send Parcel</NavLink>
       </li>
       <li>
         <NavLink to="/about">About</NavLink>
