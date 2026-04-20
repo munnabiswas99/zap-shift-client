@@ -1,74 +1,34 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import Select from "react-select";
+import { useLoaderData } from "react-router";
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
-    control,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const senderRegion = watch("senderRegion");
+  const receiverRegion = watch("receiverRegion");
+  console.log(senderRegion);
 
   const handleSendParcel = (data) => {
     console.log(data);
   };
 
-  const districts = [
-    "Dhaka",
-    "Chattogram",
-    "Cumilla",
-    "Gazipur",
-    "Narayanganj",
-    "Rajshahi",
-    "Khulna",
-    "Barishal",
-    "Sylhet",
-    "Rangpur",
-    "Mymensingh",
-    "Bogra",
-    "Jessore",
-    "Noakhali",
-    "Feni",
-    "Cox's Bazar",
-    "Tangail",
-    "Pabna",
-    "Kushtia",
-    "Dinajpur",
-    "Thakurgaon",
-    "Chuadanga",
-    "Meherpur",
-    "Jhenaidah",
-    "Magura",
-    "Satkhira",
-    "Bagerhat",
-    "Pirojpur",
-    "Jhalokathi",
-    "Bhola",
-    "Barguna",
-    "Habiganj",
-    "Moulvibazar",
-    "Sunamganj",
-    "Netrokona",
-    "Sherpur",
-    "Jamalpur",
-    "Naogaon",
-    "Natore",
-    "Chapainawabganj",
-    "Joypurhat",
-    "Sirajganj",
-    "Gaibandha",
-    "Kurigram",
-    "Lalmonirhat",
-    "Nilphamari",
-    "Panchagarh",
-  ];
+  const serviceCenters = useLoaderData();
+  const duplicateRegion = serviceCenters.map(c =>c.region)
+  const regions = [...new Set(duplicateRegion)]; 
+//   console.log(regions);
 
-  // convert to react-select format
-  const districtOptions = districts.map((d) => ({
-    value: d,
-    label: d,
-  }));
+  const districtByRegion = region => {
+    const regionDistricts = serviceCenters.filter(c => c.region === region);
+    const districts = regionDistricts.map(d => d.district);
+    return districts;
+  }
+
 
   return (
     <div>
@@ -154,28 +114,27 @@ const SendParcel = () => {
                 placeholder="Sender Phone No"
               />
             </fieldset>
+
+            {/*Sender Region  */}
             <fieldset className="fieldset">
-              <label className="label font-semibold">District</label>
+              <legend className="fieldset-legend">Region</legend>
+              <select {...register("senderRegion")} defaultValue="Pick a region" className="select w-full">
+                <option disabled={true}>Pick a region</option>
+                {
+                    regions.map((region, index) => <option key={index} value={region}>{region}</option>)
+                }
+              </select>
+            </fieldset>
 
-              <Controller
-                name="senderDistrict"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Select
-                    options={districtOptions}
-                    placeholder="Search & select district"
-                    value={districtOptions.find(
-                      (option) => option.value === field.value,
-                    )}
-                    onChange={(selected) => field.onChange(selected.value)}
-                  />
-                )}
-              />
-
-              {errors.senderDistrict && (
-                <p className="text-red-500">District is required</p>
-              )}
+            {/*Sender District  */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">District</legend>
+              <select {...register("senderDistrict")} defaultValue="Pick a District" className="select w-full">
+                <option disabled={true}>Pick a District</option>
+                {
+                    districtByRegion(senderRegion).map((district, index) => <option key={index} value={district}>{district}</option>)
+                }
+              </select>
             </fieldset>
             <fieldset className="fieldset w-full">
               <label className="label font-semibold">Pickup Instruction</label>
@@ -222,31 +181,33 @@ const SendParcel = () => {
                 placeholder="Receiver Phone No"
               />
             </fieldset>
+
+                        {/*Sender Region  */}
             <fieldset className="fieldset">
-              <label className="label font-semibold">Receiver District</label>
-
-              <Controller
-                name="receiverDistrict"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Select
-                    options={districtOptions}
-                    placeholder="Search & select district"
-                    value={districtOptions.find(
-                      (option) => option.value === field.value,
-                    )}
-                    onChange={(selected) => field.onChange(selected.value)}
-                  />
-                )}
-              />
-
-              {errors.receiverDistrict && (
-                <p className="text-red-500">District is required</p>
-              )}
+              <legend className="fieldset-legend">Region</legend>
+              <select {...register("receiverRegion")} defaultValue="Pick a region" className="select w-full">
+                <option disabled={true}>Pick a region</option>
+                {
+                    regions.map((region, index) => <option key={index} value={region}>{region}</option>)
+                }
+              </select>
             </fieldset>
+
+            {/*Sender District  */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">District</legend>
+              <select {...register("receiverDistrict")} defaultValue="Pick a District" className="select w-full">
+                <option disabled={true}>Pick a District</option>
+                {
+                    districtByRegion(receiverRegion).map((district, index) => <option key={index} value={district}>{district}</option>)
+                }
+              </select>
+            </fieldset>
+
             <fieldset className="fieldset w-full">
-              <label className="label font-semibold">Delivery Instruction</label>
+              <label className="label font-semibold">
+                Delivery Instruction
+              </label>
 
               <textarea
                 {...register("deliveryInstruction")}
