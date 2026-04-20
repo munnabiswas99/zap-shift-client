@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
+import { GoContainer } from "react-icons/go";
+
 
 const DashBoardLayout = () => {
   return (
@@ -74,7 +76,8 @@ const DashBoardLayout = () => {
 
             {/* Dashboard Links */}
             <li>
-                <NavLink to='/dashboard/my-parcels'>My parcels</NavLink>
+                <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Parcels" to='/dashboard/my-parcels'><GoContainer /><span className="is-drawer-close:hidden">My parcels</span></NavLink>
             </li>
 
             {/* List item */}
