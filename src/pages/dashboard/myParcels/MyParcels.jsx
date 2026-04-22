@@ -81,7 +81,7 @@ const MyParcels = () => {
                 <td>{parcel.cost}</td>
                 <td>
                   {parcel.paymentStatus === "paid" ? (
-                    <span className="bg-green-700">PAID</span>
+                    <span className="text-green-500 text-center">PAID</span>
                   ) : (
                       <button onClick={() => handlePayment(parcel)} className="btn btn-sm bg-primary ">
                         Pay Now

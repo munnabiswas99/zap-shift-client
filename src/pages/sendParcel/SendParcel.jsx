@@ -1,6 +1,6 @@
 import React from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -15,6 +15,7 @@ const SendParcel = () => {
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const senderRegion = useWatch({ control, name: "senderRegion" });
   const receiverRegion = useWatch({ control, name: "receiverRegion" });
@@ -62,6 +63,16 @@ const SendParcel = () => {
         // });
         axiosSecure.post("/parcels", data).then((res) => {
           // console.log("Parcel data saved in DB.", res.data);
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate('/dashboard/my-parcels')
+          }
         });
     });
   };
