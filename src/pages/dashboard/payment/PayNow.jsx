@@ -15,6 +15,20 @@ const PayNow = () => {
     },
   });
 
+  const handlePayment = async () => {
+    const paymentInfo = {
+        parcelId: parcel._id,
+        senderEmail: parcel.senderEmail,
+        parcelName: parcel.parcelName,
+        cost: parcel.cost
+    }
+
+    const res = await axioxSecure.post('/create-checkout-session', paymentInfo);
+
+    console.log(res.data);
+    window.location.href = res.data.url;
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -24,7 +38,8 @@ const PayNow = () => {
   }
   return (
     <div>
-      <h1>Pay the bill now for your parcel: {parcel.parcelName}</h1>
+      <h1>Pay the bill ${parcel.cost} for your parcel: {parcel.parcelName}</h1>
+      <button onClick={handlePayment} className="btn bg-primary btn-primary m-2 text-black">Pay</button>
     </div>
   );
 };
