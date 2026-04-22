@@ -2,10 +2,9 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { GoContainer } from "react-icons/go";
 
-
 const DashBoardLayout = () => {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open mx-auto max-w-7xl">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
@@ -34,11 +33,8 @@ const DashBoardLayout = () => {
           <div className="px-4">Navbar Title</div>
         </nav>
 
-
         {/* Page content here */}
         <Outlet></Outlet>
-
-        
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">
@@ -52,7 +48,8 @@ const DashBoardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <Link to='/'
+              <Link
+                to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -76,8 +73,14 @@ const DashBoardLayout = () => {
 
             {/* Dashboard Links */}
             <li>
-                <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Parcels" to='/dashboard/my-parcels'><GoContainer /><span className="is-drawer-close:hidden">My parcels</span></NavLink>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Parcels"
+                to="/dashboard/my-parcels"
+              >
+                <GoContainer />
+                <span className="is-drawer-close:hidden">My parcels</span>
+              </NavLink>
             </li>
 
             {/* List item */}

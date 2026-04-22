@@ -42,7 +42,9 @@ const SendParcel = () => {
       }
     }
 
-    console.log("cost: ", cost);
+    // console.log("cost: ", cost);
+    data.cost = cost;
+
     Swal.fire({
       title: "Agree with the cost?",
       text: `You will be charged ${cost} taka!`,
@@ -59,7 +61,7 @@ const SendParcel = () => {
         //   icon: "success",
         // });
         axiosSecure.post("/parcels", data).then((res) => {
-          console.log("Parcel data saved in DB.", res.data);
+          // console.log("Parcel data saved in DB.", res.data);
         });
     });
   };
