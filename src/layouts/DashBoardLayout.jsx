@@ -1,10 +1,11 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { GoContainer } from "react-icons/go";
+import { MdOutlinePayment } from "react-icons/md";
 
 const DashBoardLayout = () => {
   return (
-    <div className="drawer lg:drawer-open mx-auto max-w-7xl">
+    <div className="drawer lg:drawer-open mx-auto max-w-11/12">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
@@ -80,6 +81,16 @@ const DashBoardLayout = () => {
               >
                 <GoContainer />
                 <span className="is-drawer-close:hidden">My parcels</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Payment History"
+                to="/dashboard/payment-history"
+              >
+                <MdOutlinePayment />
+                <span className="is-drawer-close:hidden">Payment History</span>
               </NavLink>
             </li>
 
