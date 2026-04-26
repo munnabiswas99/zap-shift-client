@@ -10,6 +10,7 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
     const {user, logOut} = useAuth();
     const navigate = useNavigate();
+
     useEffect(() => {
       const reqInterceptor = axiosSecure.interceptors.request.use(config => {
         config.headers.Authorization = `Bearer ${user?.accessToken}`
@@ -34,7 +35,7 @@ const useAxiosSecure = () => {
         axiosSecure.interceptors.request.eject(reqInterceptor);
         axiosSecure.interceptors.response.eject(resInterceptor);
       }
-    }, [user])
+    }, [user, logOut, navigate])
     return axiosSecure;
 };
 
