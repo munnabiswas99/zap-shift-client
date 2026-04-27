@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import rider from "../../assets/agent-pending.png";
 
 const Rider = () => {
   const {
@@ -21,25 +22,28 @@ const Rider = () => {
 
   const handleSendParcel = (data) => {
     console.log(data);
-
     Swal.fire({
-      title: "Agree with the cost?",
-      text: `You will be charged taka!`,
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes!",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed)
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
+        axiosSecure.post("/riders", data).then((res) => {
+          if (res.data.insertedId) {
+            console.log("Rider inserted to the db");
+            Swal.fire({
+              title: "Submitted!",
+              text: "Your application has been submitted",
+              icon: "success",
+            });
+          }
         });
     });
   };
-
 
   const serviceCenters = useLoaderData();
 
@@ -53,10 +57,9 @@ const Rider = () => {
     return districts;
   };
 
-
   return (
     <div>
-      <h1 className="font-bold text-4xl">Be a rider</h1>
+      <h1 className="font-bold text-4xl mt-3">Be a rider</h1>
       <form onSubmit={handleSubmit(handleSendParcel)}>
         <hr className="text-gray-300 my-5" />
 
@@ -137,12 +140,58 @@ const Rider = () => {
                 ))}
               </select>
             </fieldset>
+
+            {/* Rider NID number */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">NID No.</legend>
+              <input
+                type="text"
+                {...register("nid")}
+                className="input w-full"
+                placeholder="NID No."
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Driving License Number
+              </legend>
+              <input
+                type="text"
+                {...register("license")}
+                className="input w-full"
+                placeholder="Driving License Number"
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Bike Brand Model and Year
+              </legend>
+              <input
+                type="text"
+                {...register("bikeModel")}
+                className="input w-full"
+                placeholder="Bike Brand Model and Year"
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Bike Registration Number
+              </legend>
+              <input
+                type="text"
+                {...register("bikeRegistration")}
+                className="input w-full"
+                placeholder="Bike Registration Number"
+              />
+            </fieldset>
             <fieldset className="fieldset w-full">
-              <label className="label font-semibold">Pickup Instruction</label>
+              <label className="label font-semibold">
+                Tell Us About Yourself
+              </label>
 
               <textarea
-                {...register("pickupInstruction")}
-                placeholder="Pickup Instruction"
+                {...register("about")}
+                placeholder="Tell Us About Yourself"
                 rows={4}
                 className="w-full px-4 py-3 rounded-lg 
                bg-gray-100 border border-gray-200
@@ -151,11 +200,14 @@ const Rider = () => {
               ></textarea>
             </fieldset>
           </div>
+          <div>
+            <img src={rider} alt="" />
+          </div>
         </div>
         <input
           type="submit"
-          className="p-2 bg-primary"
-          value="Proceed to Confirm Booking"
+          className="p-2 bg-primary rounded-xl"
+          value="Submit"
         />
       </form>
     </div>
