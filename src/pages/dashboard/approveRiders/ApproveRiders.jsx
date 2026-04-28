@@ -5,16 +5,43 @@ import { useQuery } from "@tanstack/react-query";
 import { ImUserCheck } from "react-icons/im";
 import { MdCancel } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 const ApproveRiders = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: riders = [] } = useQuery({
+  const {refetch, data: riders = [] } = useQuery({
     queryKey: ["riders", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get("/riders");
       return res.data;
     },
   });
+
+  const handleUpdateStatus = (id, status) => {
+    const aproveInfo = { status: status };
+
+    axiosSecure.patch(`/riders/${id}`, aproveInfo).then((res) => {
+      if (res.data.modifiedCount) {
+        refetch()
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Rider has been approved",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    });
+  };
+
+  const handleApprove = (id) => {
+    handleUpdateStatus(id, 'approved')
+  };
+  const handleReject = (id) => {
+    handleUpdateStatus(id, 'rejected')
+  };
+
+
   return (
     <div>
       <h1>Rider Applications: {riders.length}</h1>
@@ -35,15 +62,27 @@ const ApproveRiders = () => {
           <tbody>
             {riders.map((rider, index) => (
               <tr key={rider._id}>
-                <th>{index+1}</th>
+                <th>{index + 1}</th>
                 <td>{rider.name}</td>
                 <td>{rider.email}</td>
                 <td>{rider.district}</td>
-                <td>{rider.status}</td>
+                {
+                    rider.status==='approved' ? <td className="text-green-600">{rider.status}</td> : <td className="text-red-600">{rider.status}</td>
+                }
                 <td>
-                    <button className="btn tooltip" data-tip="Approve"><ImUserCheck /></button>
-                    <button className="btn tooltip" data-tip="Cancel"><MdCancel /></button>
-                    <button className="btn tooltip" data-tip="Delete"><RiDeleteBin6Fill /></button>
+                  <button
+                    onClick={() => handleApprove(rider._id)}
+                    className="btn tooltip"
+                    data-tip="Approve"
+                  >
+                    <ImUserCheck />
+                  </button>
+                  <button onClick={()=> handleReject(rider._id)} className="btn tooltip" data-tip="Cancel">
+                    <MdCancel />
+                  </button>
+                  <button className="btn tooltip" data-tip="Delete">
+                    <RiDeleteBin6Fill />
+                  </button>
                 </td>
               </tr>
             ))}
