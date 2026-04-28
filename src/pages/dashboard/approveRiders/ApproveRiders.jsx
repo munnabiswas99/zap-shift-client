@@ -17,10 +17,10 @@ const ApproveRiders = () => {
     },
   });
 
-  const handleUpdateStatus = (id, status) => {
-    const aproveInfo = { status: status };
+  const handleUpdateStatus = (rider, status) => {
+    const aproveInfo = { status: status, email: rider.email };
 
-    axiosSecure.patch(`/riders/${id}`, aproveInfo).then((res) => {
+    axiosSecure.patch(`/riders/${rider._id}`, aproveInfo).then((res) => {
       if (res.data.modifiedCount) {
         refetch()
         Swal.fire({
@@ -34,11 +34,11 @@ const ApproveRiders = () => {
     });
   };
 
-  const handleApprove = (id) => {
-    handleUpdateStatus(id, 'approved')
+  const handleApprove = (rider) => {
+    handleUpdateStatus(rider, 'approved')
   };
-  const handleReject = (id) => {
-    handleUpdateStatus(id, 'rejected')
+  const handleReject = (rider) => {
+    handleUpdateStatus(rider, 'rejected')
   };
 
 
@@ -71,13 +71,13 @@ const ApproveRiders = () => {
                 }
                 <td>
                   <button
-                    onClick={() => handleApprove(rider._id)}
+                    onClick={() => handleApprove(rider)}
                     className="btn tooltip"
                     data-tip="Approve"
                   >
                     <ImUserCheck />
                   </button>
-                  <button onClick={()=> handleReject(rider._id)} className="btn tooltip" data-tip="Cancel">
+                  <button onClick={()=> handleReject(rider)} className="btn tooltip" data-tip="Cancel">
                     <MdCancel />
                   </button>
                   <button className="btn tooltip" data-tip="Delete">
