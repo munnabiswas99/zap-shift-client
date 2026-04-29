@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { GoContainer } from "react-icons/go";
 import { MdDirectionsBike, MdOutlinePayment } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
 const DashBoardLayout = () => {
   return (
@@ -101,6 +102,16 @@ const DashBoardLayout = () => {
               >
                 <MdDirectionsBike />
                 <span className="is-drawer-close:hidden">Approve Riders</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="User mangement"
+                to="/dashboard/user-management"
+              >
+                <FaUser />
+                <span className="is-drawer-close:hidden">User Management</span>
               </NavLink>
             </li>
 

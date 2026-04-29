@@ -6,6 +6,7 @@ import { ImUserCheck } from "react-icons/im";
 import { MdCancel } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { FaEye } from "react-icons/fa";
 
 const ApproveRiders = () => {
   const axiosSecure = useAxiosSecure();
@@ -51,7 +52,7 @@ const ApproveRiders = () => {
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th>Name</th>
               <th>Email</th>
               <th>Districts</th>
@@ -70,6 +71,12 @@ const ApproveRiders = () => {
                     rider.status==='approved' ? <td className="text-green-600">{rider.status}</td> : <td className="text-red-600">{rider.status}</td>
                 }
                 <td>
+                  <button
+                    className="btn tooltip"
+                    data-tip="View"
+                  >
+                    <FaEye />
+                  </button>
                   <button
                     onClick={() => handleApprove(rider)}
                     className="btn tooltip"

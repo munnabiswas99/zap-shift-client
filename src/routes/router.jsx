@@ -17,6 +17,7 @@ import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
 import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/paymentHisstory/PaymentHistory";
 import ApproveRiders from "../pages/dashboard/approveRiders/ApproveRiders";
+import UserManagement from "../pages/dashboard/userManagement/UserManagement";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
     path:'/dashboard',
     element: <PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
     children: [
+      {
+        path: 'user-management',
+        Component: UserManagement
+      },
       {
         path: 'my-parcels',
         Component: MyParcels
