@@ -1,17 +1,52 @@
 import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { TiUserAdd } from "react-icons/ti";
+import { FaUserMinus } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const UserManagement = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: users = [] } = useQuery({
+  const { refetch, data: users = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users`);
       return res.data;
     },
   });
+
+  const handleAdmin = (user, role) => {
+    let adminInfo;
+
+    if (role === "admin") {
+      adminInfo = { role: "user" };
+    } else {
+      adminInfo = { role: "admin" };
+    }
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed)
+        axiosSecure.patch(`/users/${user._id}`, adminInfo).then((res) => {
+          if (res.data.modifiedCount) {
+            refetch();
+            Swal.fire({
+              title: "Submitted!",
+              text: "Admin Role changed",
+              icon: "success",
+            });
+          }
+        });
+    });
+  };
 
   return (
     <div>
@@ -25,7 +60,8 @@ const UserManagement = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Action</th>
+              <th>Admin Actions</th>
+              <th>Other Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -46,9 +82,28 @@ const UserManagement = () => {
                 </td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">details</button>
-                </th>
+
+                {user.role === "admin" ? (
+                  <th>
+                    <button
+                      onClick={() => handleAdmin(user, user.role)}
+                      className="btn tooltip bg-green-400"
+                      data-tip="Add Admin"
+                    >
+                      <TiUserAdd />
+                    </button>
+                  </th>
+                ) : (
+                  <th>
+                    <button
+                      onClick={() => handleAdmin(user, user.role)}
+                      className="btn tooltip bg-red-400"
+                      data-tip="Remove Admin"
+                    >
+                      <FaUserMinus />
+                    </button>
+                  </th>
+                )}
               </tr>
             ))}
           </tbody>
