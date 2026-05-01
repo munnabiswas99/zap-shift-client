@@ -40,7 +40,7 @@ const UserManagement = () => {
             refetch();
             Swal.fire({
               title: "Submitted!",
-              text: "Admin Role changed",
+              text: `User Role changed to ${adminInfo.role}`,
               icon: "success",
             });
           }
@@ -66,7 +66,7 @@ const UserManagement = () => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr>
+              <tr key={user._id}>
                 <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
