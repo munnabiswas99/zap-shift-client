@@ -40,7 +40,7 @@ const UserManagement = () => {
             refetch();
             Swal.fire({
               title: "Submitted!",
-              text: `User Role changed to ${adminInfo.role}`,
+              text: `${user.displayName}'s role changed to ${user.role}`,
               icon: "success",
             });
           }
