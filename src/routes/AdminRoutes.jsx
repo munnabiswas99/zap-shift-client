@@ -4,7 +4,7 @@ import useRole from "../hooks/useRole";
 import Forbidden from "../pages/forbidden/Forbidden";
 
 const AdminRoutes = ({children}) => {
-  const { user, isLoading } = useAuth();
+  const { isLoading } = useAuth();
   const { role, roleLoading } = useRole();
 
   if (isLoading || roleLoading) {
