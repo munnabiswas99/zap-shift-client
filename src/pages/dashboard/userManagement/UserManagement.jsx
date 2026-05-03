@@ -87,20 +87,20 @@ const UserManagement = () => {
                   <th>
                     <button
                       onClick={() => handleAdmin(user, user.role)}
-                      className="btn tooltip bg-green-400"
-                      data-tip="Add Admin"
+                      className="btn tooltip bg-red-400"
+                      data-tip="Remove Admin"
                     >
-                      <TiUserAdd />
+                      <FaUserMinus />
                     </button>
                   </th>
                 ) : (
                   <th>
                     <button
                       onClick={() => handleAdmin(user, user.role)}
-                      className="btn tooltip bg-red-400"
-                      data-tip="Remove Admin"
+                      className="btn tooltip bg-green-400"
+                      data-tip="Add Admin"
                     >
-                      <FaUserMinus />
+                      <TiUserAdd />
                     </button>
                   </th>
                 )}
