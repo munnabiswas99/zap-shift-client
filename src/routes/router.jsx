@@ -18,6 +18,7 @@ import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/paymentHisstory/PaymentHistory";
 import ApproveRiders from "../pages/dashboard/approveRiders/ApproveRiders";
 import UserManagement from "../pages/dashboard/userManagement/UserManagement";
+import Forbidden from "../pages/forbidden/Forbidden";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         Component: About
+      },
+      {
+        path: 'forbidden',
+        Component: Forbidden
       },
       {
         path: "*",
