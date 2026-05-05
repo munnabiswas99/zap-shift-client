@@ -8,9 +8,11 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { FaEye } from "react-icons/fa";
 
+import { FcApproval, FcDisapprove } from "react-icons/fc";
+
 const ApproveRiders = () => {
   const axiosSecure = useAxiosSecure();
-  const {refetch, data: riders = [] } = useQuery({
+  const { refetch, data: riders = [] } = useQuery({
     queryKey: ["riders", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get("/riders");
@@ -23,11 +25,11 @@ const ApproveRiders = () => {
 
     axiosSecure.patch(`/riders/${rider._id}`, aproveInfo).then((res) => {
       if (res.data.modifiedCount) {
-        refetch()
+        refetch();
         Swal.fire({
           position: "top-end",
-          icon: "success",
-          title: "Rider has been approved",
+          icon: status === "approved" ? "success" : "error",
+          title: `Rider has been ${status}`,
           showConfirmButton: false,
           timer: 2000,
         });
@@ -36,12 +38,18 @@ const ApproveRiders = () => {
   };
 
   const handleApprove = (rider) => {
-    handleUpdateStatus(rider, 'approved')
+    handleUpdateStatus(rider, "approved");
   };
   const handleReject = (rider) => {
-    handleUpdateStatus(rider, 'rejected')
+    handleUpdateStatus(rider, "rejected");
   };
 
+  const deleteRider = (id) =>{
+    axiosSecure.delete(`/riders/${id}`)
+    .then(res => {
+      console.log(res.data)
+    })
+  }
 
   return (
     <div>
@@ -67,14 +75,13 @@ const ApproveRiders = () => {
                 <td>{rider.name}</td>
                 <td>{rider.email}</td>
                 <td>{rider.district}</td>
-                {
-                    rider.status==='approved' ? <td className="text-green-600">{rider.status}</td> : <td className="text-red-600">{rider.status}</td>
-                }
+                {rider.status === "approved" ? (
+                  <td className="text-green-600">{rider.status}</td>
+                ) : (
+                  <td className="text-red-600">{rider.status}</td>
+                )}
                 <td>
-                  <button
-                    className="btn tooltip"
-                    data-tip="View"
-                  >
+                  <button className="btn tooltip" data-tip="View">
                     <FaEye />
                   </button>
                   <button
@@ -84,10 +91,14 @@ const ApproveRiders = () => {
                   >
                     <ImUserCheck />
                   </button>
-                  <button onClick={()=> handleReject(rider)} className="btn tooltip" data-tip="Cancel">
+                  <button
+                    onClick={() => handleReject(rider)}
+                    className="btn tooltip"
+                    data-tip="Cancel"
+                  >
                     <MdCancel />
                   </button>
-                  <button className="btn tooltip" data-tip="Delete">
+                  <button onClick={()=>deleteRider(rider._id)} className="btn tooltip" data-tip="Delete">
                     <RiDeleteBin6Fill />
                   </button>
                 </td>
