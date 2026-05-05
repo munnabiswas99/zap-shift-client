@@ -44,12 +44,41 @@ const ApproveRiders = () => {
     handleUpdateStatus(rider, "rejected");
   };
 
-  const deleteRider = (id) =>{
-    axiosSecure.delete(`/riders/${id}`)
-    .then(res => {
-      console.log(res.data)
-    })
-  }
+  const deleteRider = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const res = await axiosSecure.delete(`/riders/${id}`);
+
+      if (res.data.deletedCount > 0) {
+        await Swal.fire({
+          title: "Deleted!",
+          text: "Rider has been removed.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong while deleting.",
+        icon: "error",
+      });
+    }
+  };
 
   return (
     <div>
@@ -98,7 +127,11 @@ const ApproveRiders = () => {
                   >
                     <MdCancel />
                   </button>
-                  <button onClick={()=>deleteRider(rider._id)} className="btn tooltip" data-tip="Delete">
+                  <button
+                    onClick={() => deleteRider(rider._id)}
+                    className="btn tooltip"
+                    data-tip="Delete"
+                  >
                     <RiDeleteBin6Fill />
                   </button>
                 </td>
