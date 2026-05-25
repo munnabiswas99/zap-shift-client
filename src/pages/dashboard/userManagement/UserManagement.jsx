@@ -62,6 +62,7 @@ const UserManagement = () => {
               <th>Role</th>
               <th>Admin Actions</th>
               <th>Other Actions</th>
+              <th>Other Actions</th>
             </tr>
           </thead>
           <tbody>
