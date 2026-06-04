@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from "react-router";
 import { GoContainer } from "react-icons/go";
 import { MdDirectionsBike, MdOutlinePayment } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
+import { TbBikeFilled } from "react-icons/tb";
 import useRole from "../hooks/useRole";
 
 const DashBoardLayout = () => {
@@ -108,6 +109,18 @@ const DashBoardLayout = () => {
                     <MdDirectionsBike />
                     <span className="is-drawer-close:hidden">
                       Approve Riders
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Riders"
+                    to="/dashboard/assign-riders"
+                  >
+                    <TbBikeFilled />
+                    <span className="is-drawer-close:hidden">
+                      Assign Riders
                     </span>
                   </NavLink>
                 </li>

@@ -30,6 +30,7 @@ const PaymentHistory = () => {
               <th>#</th>
               <th>Parcel Info</th>
               <th>Recipient</th>
+              <th>TransactionID</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -40,6 +41,7 @@ const PaymentHistory = () => {
                 <th>{index + 1}</th>
                 <td>{payment.parcelName}</td>
                 <td className="break-all">{payment.customerEmail}</td>
+                <td>{payment.transactionId}</td>
                 <td>
                   <span className="badge badge-success">
                     {payment.paymentStatus}

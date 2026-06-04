@@ -70,6 +70,8 @@ const MyParcels = () => {
               <th>Name</th>
               <th>Cost</th>
               <th>Payment Status</th>
+              <th>Delivery Status</th>
+              <th>TrackingID</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -88,6 +90,8 @@ const MyParcels = () => {
                       </button>
                   )}
                 </td>
+                <td>{parcel.deliveryStatus}</td>
+                <td>{parcel.trakingId}</td>
                 <td>
                   <button className="btn btn-square">
                     <FaMagnifyingGlass />
