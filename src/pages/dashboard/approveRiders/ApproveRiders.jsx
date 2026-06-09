@@ -93,7 +93,8 @@ const ApproveRiders = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Districts</th>
-              <th>Status</th>
+              <th>Work Status</th>
+              <th>Approve Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -104,6 +105,7 @@ const ApproveRiders = () => {
                 <td>{rider.name}</td>
                 <td>{rider.email}</td>
                 <td>{rider.district}</td>
+                <td>{rider.workStatus}</td>
                 {rider.status === "approved" ? (
                   <td className="text-green-600">{rider.status}</td>
                 ) : (
